@@ -5,6 +5,8 @@ import com.michaeludjiawan.covidchatbox.data.api.Result
 import com.michaeludjiawan.covidchatbox.data.local.AppDb
 import com.michaeludjiawan.covidchatbox.data.local.AppPreferences
 import com.michaeludjiawan.covidchatbox.data.model.Country
+import com.michaeludjiawan.covidchatbox.data.model.GlobalStatistic
+import java.util.*
 
 const val API_LAST_FETCH_TIMESTAMP = "api_last_fetch_timestamp"
 const val API_CACHE_DURATION = 86400000 //24 hours in ms
@@ -48,5 +50,13 @@ class CovidRepositoryImpl(
 
     private suspend fun saveSummaryToDb(summary: List<Country>) {
         appDb.summaryDao().insertAll(summary)
+    }
+
+    override suspend fun getCountryData(countryCode: String): Country? {
+        return appDb.summaryDao().getCountryByCode(countryCode.toUpperCase(Locale.getDefault()))
+    }
+
+    override suspend fun getGlobalData(): GlobalStatistic {
+        TODO("Not yet implemented")
     }
 }

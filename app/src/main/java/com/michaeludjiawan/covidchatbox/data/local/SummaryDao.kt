@@ -14,4 +14,13 @@ interface SummaryDao {
 
     @Query("SELECT * FROM Country")
     suspend fun getSummary(): List<Country>
+
+    @Query("SELECT totalConfirmed FROM Country WHERE countryCode = :countryCode")
+    suspend fun getTotalConfirmed(countryCode: String): Int
+
+    @Query("SELECT totalDeaths FROM Country WHERE countryCode = :countryCode")
+    suspend fun getTotalDeaths(countryCode: String): Int
+
+    @Query("SELECT * FROM Country WHERE countryCode = :countryCode")
+    suspend fun getCountryByCode(countryCode: String): Country?
 }
