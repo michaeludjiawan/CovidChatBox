@@ -35,12 +35,10 @@ class CovidRepositoryImpl(
         return elapsedTime < API_CACHE_DURATION
     }
 
-    private suspend fun getSummaryFromDb(): List<Country> = appDb.summaryDao().getSummary()
-
     private suspend fun getSummaryFromServer(): Result<Boolean> {
         return try {
             val summary = apiService.getSummary()
-            saveSummaryToDb(summary.countries)
+            saveCountriesToDb(summary.countries)
             appPref.save(API_LAST_FETCH_TIMESTAMP, System.currentTimeMillis())
             Result.Success(true)
         } catch (throwable: Throwable) {
@@ -48,12 +46,12 @@ class CovidRepositoryImpl(
         }
     }
 
-    private suspend fun saveSummaryToDb(summary: List<Country>) {
-        appDb.summaryDao().insertAll(summary)
+    private suspend fun saveCountriesToDb(countries: List<Country>) {
+        appDb.countryDao().insertAll(countries)
     }
 
     override suspend fun getCountryData(countryCode: String): Country? {
-        return appDb.summaryDao().getCountryByCode(countryCode.toUpperCase(Locale.getDefault()))
+        return appDb.countryDao().getCountryByCode(countryCode.toUpperCase(Locale.getDefault()))
     }
 
     override suspend fun getGlobalData(): GlobalStatistic {

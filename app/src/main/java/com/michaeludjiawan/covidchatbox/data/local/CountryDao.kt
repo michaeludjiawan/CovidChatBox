@@ -7,19 +7,13 @@ import androidx.room.Query
 import com.michaeludjiawan.covidchatbox.data.model.Country
 
 @Dao
-interface SummaryDao {
+interface CountryDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertAll(summary: List<Country>)
+    suspend fun insertAll(countries: List<Country>)
 
     @Query("SELECT * FROM Country")
-    suspend fun getSummary(): List<Country>
-
-    @Query("SELECT totalConfirmed FROM Country WHERE countryCode = :countryCode")
-    suspend fun getTotalConfirmed(countryCode: String): Int
-
-    @Query("SELECT totalDeaths FROM Country WHERE countryCode = :countryCode")
-    suspend fun getTotalDeaths(countryCode: String): Int
+    suspend fun getCountries(): List<Country>
 
     @Query("SELECT * FROM Country WHERE countryCode = :countryCode")
     suspend fun getCountryByCode(countryCode: String): Country?

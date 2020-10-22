@@ -10,7 +10,7 @@ val dataModule = module {
     single { createDatabase(get()) }
     single { createSharedPref(get()) }
 
-    single { (get() as AppDb).summaryDao() }
+    single { (get() as AppDb).countryDao() }
 }
 
 fun createSharedPref(context: Context): AppPreferences {

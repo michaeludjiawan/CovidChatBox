@@ -11,5 +11,5 @@ import com.michaeludjiawan.covidchatbox.data.model.Country
 )
 @TypeConverters(value = [DateTypeConverter::class])
 abstract class AppDb: RoomDatabase() {
-    abstract fun summaryDao(): SummaryDao
+    abstract fun countryDao(): CountryDao
 }
