@@ -4,14 +4,14 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.michaeludjiawan.covidchatbox.data.model.CountrySummary
+import com.michaeludjiawan.covidchatbox.data.model.Country
 
 @Dao
 interface SummaryDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertAll(summary: List<CountrySummary>)
+    suspend fun insertAll(summary: List<Country>)
 
-    @Query("SELECT * FROM CountrySummary")
-    suspend fun getSummary(): List<CountrySummary>
+    @Query("SELECT * FROM Country")
+    suspend fun getSummary(): List<Country>
 }

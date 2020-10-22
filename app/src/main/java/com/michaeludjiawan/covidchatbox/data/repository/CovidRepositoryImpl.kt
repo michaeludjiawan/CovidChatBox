@@ -4,7 +4,7 @@ import com.michaeludjiawan.covidchatbox.data.api.CovidApiService
 import com.michaeludjiawan.covidchatbox.data.api.Result
 import com.michaeludjiawan.covidchatbox.data.local.AppDb
 import com.michaeludjiawan.covidchatbox.data.local.AppPreferences
-import com.michaeludjiawan.covidchatbox.data.model.CountrySummary
+import com.michaeludjiawan.covidchatbox.data.model.Country
 
 const val API_LAST_FETCH_TIMESTAMP = "api_last_fetch_timestamp"
 const val API_CACHE_DURATION = 86400000 //24 hours in ms
@@ -15,12 +15,11 @@ class CovidRepositoryImpl(
     private val appPref: AppPreferences
 ) : CovidRepository {
 
-    override suspend fun getSummary(): Result<List<CountrySummary>> {
+    override suspend fun updateData(): Result<Boolean> {
         return if (!isCacheValid()) {
             getSummaryFromServer()
         } else {
-            val summary = getSummaryFromDb()
-            Result.Success(summary)
+            Result.Success(true)
         }
     }
 
@@ -34,20 +33,20 @@ class CovidRepositoryImpl(
         return elapsedTime < API_CACHE_DURATION
     }
 
-    private suspend fun getSummaryFromDb(): List<CountrySummary> = appDb.summaryDao().getSummary()
+    private suspend fun getSummaryFromDb(): List<Country> = appDb.summaryDao().getSummary()
 
-    private suspend fun getSummaryFromServer(): Result<List<CountrySummary>> {
+    private suspend fun getSummaryFromServer(): Result<Boolean> {
         return try {
             val summary = apiService.getSummary()
-            saveSummaryToDb(summary)
+            saveSummaryToDb(summary.countries)
             appPref.save(API_LAST_FETCH_TIMESTAMP, System.currentTimeMillis())
-            Result.Success(summary)
+            Result.Success(true)
         } catch (throwable: Throwable) {
             Result.Error(throwable)
         }
     }
 
-    private suspend fun saveSummaryToDb(summary: List<CountrySummary>) {
+    private suspend fun saveSummaryToDb(summary: List<Country>) {
         appDb.summaryDao().insertAll(summary)
     }
 }
