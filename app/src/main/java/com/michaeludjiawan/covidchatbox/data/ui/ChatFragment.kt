@@ -39,6 +39,7 @@ class ChatFragment : Fragment(R.layout.fragment_chat) {
 
         viewModel.messageResponse.observe(viewLifecycleOwner, { message ->
             messageAdapter.addMessage(Message(message, SenderType.RECEIVED))
+            rv_chat_messages.scrollToPosition(rv_chat_messages.adapter!!.itemCount - 1)
         })
     }
 
