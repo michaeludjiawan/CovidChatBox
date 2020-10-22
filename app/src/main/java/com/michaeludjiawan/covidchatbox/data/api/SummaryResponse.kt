@@ -5,6 +5,6 @@ import com.michaeludjiawan.covidchatbox.data.model.Country
 import com.michaeludjiawan.covidchatbox.data.model.StatusStatistic
 
 data class SummaryResponse(
-    @SerializedName("global") val globalStatistic: StatusStatistic,
-    @SerializedName("countries") val countries: List<Country>
+    @SerializedName("Global") val globalStatistic: StatusStatistic,
+    @SerializedName("Countries") val countries: List<Country>
 )
