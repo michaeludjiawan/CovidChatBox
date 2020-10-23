@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">CovidChatBox</string>
+
+    <string name="command_list_title">Supported Commands</string>
+    <string name="command_list_message">
+        1. Cases \"country-code\"\n\n2. Deaths \"country-code\"\n\n3. Cases total\n\n4. Deaths total
+    </string>
 </resources>

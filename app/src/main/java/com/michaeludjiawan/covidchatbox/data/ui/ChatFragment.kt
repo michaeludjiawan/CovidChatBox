@@ -1,7 +1,11 @@
 package com.michaeludjiawan.covidchatbox.data.ui
 
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
+import androidx.appcompat.app.AlertDialog
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -19,6 +23,7 @@ class ChatFragment : Fragment(R.layout.fragment_chat) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
         viewModel.updateData()
     }
 
@@ -65,5 +70,26 @@ class ChatFragment : Fragment(R.layout.fragment_chat) {
         btn_chat_error_retry.setOnClickListener {
             viewModel.updateData()
         }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.menu_chat, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.action_help -> {
+                showHelpDialog()
+            }
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
+    private fun showHelpDialog() {
+        AlertDialog.Builder(requireContext())
+            .setTitle(getString(R.string.command_list_title))
+            .setMessage(getString(R.string.command_list_message))
+            .setPositiveButton("Got it", null)
+            .show()
     }
 }
