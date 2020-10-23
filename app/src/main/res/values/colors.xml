@@ -7,9 +7,11 @@
     <color name="bubble_sent">@color/blue50</color>
     <color name="bubble_received">@color/blue_gray50</color>
     <color name="line_separator">@color/gray300</color>
+    <color name="error_red">@color/red600</color>
 
     <!-- Palette -->
     <color name="gray300">#E0E0E0</color>
     <color name="blue50">#E3F2FD</color>
     <color name="blue_gray50">#ECEFF1</color>
+    <color name="red600">#E53935</color>
 </resources>

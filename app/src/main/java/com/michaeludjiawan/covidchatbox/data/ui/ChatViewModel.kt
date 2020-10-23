@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.michaeludjiawan.covidchatbox.data.api.Result
 import com.michaeludjiawan.covidchatbox.data.repository.CovidRepository
 import kotlinx.coroutines.launch
 
@@ -14,9 +15,18 @@ class ChatViewModel(
     private val mutableMessageResponse = MutableLiveData<String>()
     val messageResponse: LiveData<String> = mutableMessageResponse
 
+    private val mutableUpdateDataResult = MutableLiveData<Result<Boolean>>()
+    val updateDataResult: LiveData<Result<Boolean>> = mutableUpdateDataResult
+
+    private val mutableUpdateDataLoading = MutableLiveData<Boolean>()
+    val updateDataLoading: LiveData<Boolean> = mutableUpdateDataLoading
+
     fun updateData() {
+        mutableUpdateDataLoading.value = true
+
         viewModelScope.launch {
-            covidRepository.updateData()
+            mutableUpdateDataResult.value = covidRepository.updateData()
+            mutableUpdateDataLoading.value = false
         }
     }
 
