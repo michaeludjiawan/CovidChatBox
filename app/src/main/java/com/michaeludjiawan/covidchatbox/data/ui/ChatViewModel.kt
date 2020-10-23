@@ -30,7 +30,7 @@ class ChatViewModel(
 
                 viewModelScope.launch {
                     val count = if (input.equals("total", true)) {
-                        TODO("Not yet implemented")
+                        covidRepository.getGlobalStatistic()?.totalConfirmed
                     } else {
                         covidRepository.getCountryData(input)?.totalConfirmed
                     }
@@ -49,7 +49,7 @@ class ChatViewModel(
 
                 viewModelScope.launch {
                     val count = if (input.equals("total", true)) {
-                        TODO("Not yet implemented")
+                        covidRepository.getGlobalStatistic()?.totalDeaths
                     } else {
                         covidRepository.getCountryData(input)?.totalDeaths
                     }

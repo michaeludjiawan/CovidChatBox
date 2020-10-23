@@ -7,5 +7,5 @@ import com.michaeludjiawan.covidchatbox.data.model.GlobalStatistic
 interface CovidRepository {
     suspend fun updateData(): Result<Boolean>
     suspend fun getCountryData(countryCode: String): Country?
-    suspend fun getGlobalData(): GlobalStatistic
+    suspend fun getGlobalStatistic(): GlobalStatistic?
 }

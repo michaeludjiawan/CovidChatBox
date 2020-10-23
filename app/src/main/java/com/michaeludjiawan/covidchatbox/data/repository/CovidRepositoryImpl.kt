@@ -39,6 +39,7 @@ class CovidRepositoryImpl(
         return try {
             val summary = apiService.getSummary()
             saveCountriesToDb(summary.countries)
+            saveGlobalStatisticToDb(summary.globalStatistic)
             appPref.save(API_LAST_FETCH_TIMESTAMP, System.currentTimeMillis())
             Result.Success(true)
         } catch (throwable: Throwable) {
@@ -50,11 +51,15 @@ class CovidRepositoryImpl(
         appDb.countryDao().insertAll(countries)
     }
 
+    private suspend fun saveGlobalStatisticToDb(globalStatistic: GlobalStatistic) {
+        appDb.globalStatisticDao().insert(globalStatistic)
+    }
+
     override suspend fun getCountryData(countryCode: String): Country? {
         return appDb.countryDao().getCountryByCode(countryCode.toUpperCase(Locale.getDefault()))
     }
 
-    override suspend fun getGlobalData(): GlobalStatistic {
-        TODO("Not yet implemented")
+    override suspend fun getGlobalStatistic(): GlobalStatistic? {
+        return appDb.globalStatisticDao().getStatistic()
     }
 }
