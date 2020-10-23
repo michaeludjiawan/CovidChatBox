@@ -1,4 +1,4 @@
-package com.michaeludjiawan.covidchatbox.data.ui
+package com.michaeludjiawan.covidchatbox.ui
 
 import android.view.LayoutInflater
 import android.view.View

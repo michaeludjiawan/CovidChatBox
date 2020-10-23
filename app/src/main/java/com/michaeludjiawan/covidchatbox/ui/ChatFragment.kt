@@ -1,4 +1,4 @@
-package com.michaeludjiawan.covidchatbox.data.ui
+package com.michaeludjiawan.covidchatbox.ui
 
 import android.os.Bundle
 import android.view.Menu
@@ -31,13 +31,24 @@ class ChatFragment : Fragment(R.layout.fragment_chat) {
         super.onViewCreated(view, savedInstanceState)
 
         initErrorBox()
+        initChatList()
+        initChatBox()
+    }
 
+    private fun initChatList() {
         rv_chat_messages.apply {
             setHasFixedSize(true)
             layoutManager = LinearLayoutManager(context)
             adapter = messageAdapter
         }
 
+        viewModel.messageResponse.observe(viewLifecycleOwner, { message ->
+            messageAdapter.addMessage(Message(message, SenderType.RECEIVED))
+            rv_chat_messages.scrollToPosition(rv_chat_messages.adapter!!.itemCount - 1)
+        })
+    }
+
+    private fun initChatBox() {
         btn_chatbox_send.setOnClickListener {
             val message = et_chatbox_input.text.toString()
             messageAdapter.addMessage(Message(message, SenderType.SENT))
@@ -45,11 +56,6 @@ class ChatFragment : Fragment(R.layout.fragment_chat) {
 
             viewModel.processMessage(message)
         }
-
-        viewModel.messageResponse.observe(viewLifecycleOwner, { message ->
-            messageAdapter.addMessage(Message(message, SenderType.RECEIVED))
-            rv_chat_messages.scrollToPosition(rv_chat_messages.adapter!!.itemCount - 1)
-        })
     }
 
     private fun clearInputBox() {

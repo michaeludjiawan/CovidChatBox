@@ -1,4 +1,4 @@
-package com.michaeludjiawan.covidchatbox.data.ui
+package com.michaeludjiawan.covidchatbox.ui
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

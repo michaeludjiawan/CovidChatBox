@@ -2,7 +2,7 @@ package com.michaeludjiawan.covidchatbox
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.michaeludjiawan.covidchatbox.data.ui.ChatFragment
+import com.michaeludjiawan.covidchatbox.ui.ChatFragment
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
