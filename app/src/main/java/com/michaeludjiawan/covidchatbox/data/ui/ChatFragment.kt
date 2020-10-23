@@ -89,7 +89,7 @@ class ChatFragment : Fragment(R.layout.fragment_chat) {
         AlertDialog.Builder(requireContext())
             .setTitle(getString(R.string.command_list_title))
             .setMessage(getString(R.string.command_list_message))
-            .setPositiveButton("Got it", null)
+            .setPositiveButton(getString(R.string.command_list_btn_label), null)
             .show()
     }
 }

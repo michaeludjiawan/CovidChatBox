@@ -5,4 +5,8 @@
     <string name="command_list_message">
         1. Cases \"country-code\"\n\n2. Deaths \"country-code\"\n\n3. Cases total\n\n4. Deaths total
     </string>
+    <string name="command_list_btn_label">Got it</string>
+    <string name="action_help_title">Help</string>
+    <string name="chat_error_message">Need to sync data.</string>
+    <string name="chat_error_btn_label">Retry</string>
 </resources>
